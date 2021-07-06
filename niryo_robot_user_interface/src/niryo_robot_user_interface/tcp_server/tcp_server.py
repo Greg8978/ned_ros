@@ -12,7 +12,7 @@ from .command_interpreter import CommandInterpreter
 
 # Threading
 from threading import Thread, Lock
-import Queue
+import queue
 
 
 class TcpServer:
@@ -31,7 +31,7 @@ class TcpServer:
         self.__is_busy_lock = Lock()
         # Interpreter
         self.__interpreter = CommandInterpreter()
-        self.__queue = Queue.Queue(1)
+        self.__queue = queue.Queue(1)
 
     def __del__(self):
         self.quit()
@@ -97,7 +97,7 @@ class TcpServer:
                 dict_command_received = self.__queue.get(block=True, timeout=0.5)
                 with self.__is_busy_lock:
                     self.__treat_command(dict_command_received)
-            except Queue.Empty:
+            except queue.Empty:
                 pass
 
     def __read_command(self):
