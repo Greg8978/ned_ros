@@ -71,7 +71,7 @@ class CommandInterpreter:
         }
 
         self.__digital_state_string_dict_convertor_inv = {index: string for string, index
-                                                          in self.__digital_state_string_dict_convertor.iteritems()}
+                                                          in self.__digital_state_string_dict_convertor.items()}
 
         self.__boolean_string_dict_converter = {
             "TRUE": True,
@@ -102,7 +102,7 @@ class CommandInterpreter:
             "ID_2": ConveyorID.ID_2,
         }
         self.__conveyor_id_string_dict_convertor_inv = {index: string for string, index
-                                                        in self.__conveyor_id_string_dict_convertor.iteritems()}
+                                                        in self.__conveyor_id_string_dict_convertor.items()}
 
         self.__conveyor_direction_string_dict_convertor = {
             "FORWARD": ConveyorDirection.FORWARD,
@@ -110,7 +110,7 @@ class CommandInterpreter:
         }
 
         self.__available_tools_string_dict_convertor_inv = {index: string for string, index
-                                                            in self.__tools_string_dict_convertor.iteritems()}
+                                                            in self.__tools_string_dict_convertor.items()}
 
     # Error Handlers
     def __raise_exception_expected_choice(self, expected_choice, given):

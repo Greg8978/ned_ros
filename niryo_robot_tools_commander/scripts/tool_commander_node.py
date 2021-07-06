@@ -51,7 +51,7 @@ class ToolCommander:
         self.__available_tools, self.__dict_commands_string_to_id = self.create_tools()
 
         self.__dict_id_commands_to_string = {string: id_ for id_, string
-                                             in self.__dict_commands_string_to_id.iteritems()}
+                                             in self.__dict_commands_string_to_id.items()}
 
         self.__is_simulation = rospy.get_param("~simulation_mode")
 

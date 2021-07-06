@@ -58,14 +58,14 @@ class ProgramManagerNode:
             "BLOCKLY": ProgramLanguage.BLOCKLY,
         }
         self.__program_language_to_str_map = {index: string for string, index
-                                              in self.__str_to_program_language_map.iteritems()}
+                                              in self.__str_to_program_language_map.items()}
         self.__autorun_mode_to_str = {
             SetProgramAutorunRequest.DISABLE: "DISABLE",
             SetProgramAutorunRequest.ONE_SHOT: "ONE_SHOT",
             SetProgramAutorunRequest.LOOP: "LOOP",
         }
         self._str_to_autorun_mode = {index: string for string, index
-                                     in self.__autorun_mode_to_str.iteritems()}
+                                     in self.__autorun_mode_to_str.items()}
 
         # Services
         rospy.Service('~manage_program', ManageProgram,
@@ -361,7 +361,7 @@ class ProgramManagerNode:
                 programs_description = description_list
         else:
             prog_dict = {}
-            for language, manager in self._manager_map.iteritems():
+            for language, manager in self._manager_map.items():
                 # Get all names from a manager
                 all_names = manager.get_all_names()
                 # Adding them to dictionary
@@ -380,7 +380,7 @@ class ProgramManagerNode:
                 languages_list_list.append(ros_lang_list)
 
             description_list = []
-            for name, languages in prog_dict.iteritems():
+            for name, languages in prog_dict.items():
                 if ProgramLanguage.PYTHON2 not in languages:
                     description_list.append("")
                 else:
