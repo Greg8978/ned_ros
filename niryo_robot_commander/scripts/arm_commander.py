@@ -223,7 +223,7 @@ class ArmCommander:
             plan = self.__get_computed_plan()
             if not plan:
                 raise ArmCommanderException(
-                    CommandStatus.PLAN_FAILED, "MoveIt failed to compute the plan.")
+                    CommandStatus.PLAN_FAILED, "MoveIt failed to compute the plan with error_code")
 
             self.__reset_controller()
             rospy.logdebug("Arm commander - Send MoveIt trajectory to controller.")
@@ -303,7 +303,7 @@ class ArmCommander:
         Get computed plan from MoveIt
         :return: the computed plan if MoveIt succeed else None
         """
-        plan = self.__arm.plan()
+        plan_success, plan, planning_time, error_code  = self.__arm.plan()
         return None if not plan.joint_trajectory.points else plan
 
     def __compute_and_execute_cartesian_plan(self, list_poses):
