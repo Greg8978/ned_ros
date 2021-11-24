@@ -26,7 +26,47 @@
             <pose frame=''>0.0 0.25 0.0005 0.0 0.0 1.57</pose>
         </model>
 
+
+	<!--model name='obstacle'>
+            <pose frame=''>0.15 0.15 0.3 0.0 0.0 1.57</pose>
+    <static>true</static>
+    <link name="link">
+      <inertial>
+        <mass>1.0</mass>
+        <inertia>
+          <ixx>0.083</ixx>       
+          <ixy>0.0</ixy>        
+          <ixz>0.0</ixz>         
+          <iyy>0.083</iyy>       
+          <iyz>0.0</iyz>        
+          <izz>0.083</izz>      
+        </inertia>
+      </inertial>
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>0.1 0.2 0.2</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.2 0.2</size>
+          </box>
+        </geometry>
+      </visual>
+    </link>
+        </model-->
+
         <!--CUBES-->
+        <model name='cube_blue_place'>
+            <include>
+                <uri>model://cube_blue</uri>
+            </include>
+            <pose frame=''>0.0 0.25 0.0005 0.0 0.0 1.57</pose>
+        </model>
+        
         <model name='cube_blue'>
             <include>
                 <uri>model://cube_blue</uri>

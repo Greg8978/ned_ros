@@ -47,16 +47,16 @@
         <arg name="simu_gripper" value="$(arg simu_gripper)"/>
     </include>
 
-    <include file="$(find niryo_robot_poses_handlers)/launch/poses_handlers.launch">
+    <!--include file="$(find niryo_robot_poses_handlers)/launch/poses_handlers.launch">
         <arg name="simulation_mode" value="$(arg simulation_mode)"/>
-    </include>
+    </include-->
 
-    <include file="$(find niryo_robot_programs_manager)/launch/programs_manager.launch">
+    <!--include file="$(find niryo_robot_programs_manager)/launch/programs_manager.launch">
         <arg name="simulation_mode" value="$(arg simulation_mode)"/>
-    </include>
+    </include-->
 
-    <include file="$(find niryo_robot_user_interface)/launch/user_interface.launch">
-    </include>
+    <!--include file="$(find niryo_robot_user_interface)/launch/user_interface.launch">
+    </include-->
 
-    <include file="$(find niryo_robot_modbus)/launch/modbus_server.launch"/>
+    <!--include file="$(find niryo_robot_modbus)/launch/modbus_server.launch"/-->
 </launch>

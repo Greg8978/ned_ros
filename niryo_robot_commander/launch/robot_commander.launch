@@ -29,10 +29,10 @@
     </group>
 
     <!-- Launch Robot commander node -->
-    <node name="niryo_robot_commander" pkg="niryo_robot_commander" type="robot_commander_node.py" output="screen"
+    <!--node name="niryo_robot_commander" pkg="niryo_robot_commander" type="robot_commander_node.py" output="screen"
           respawn="false">
         <rosparam command="load" file="$(find niryo_robot_commander)/config/commander_params.yaml"/>
         <rosparam command="load" file="$(find niryo_robot_commander)/config/jog_params.yaml"/>
         <param name="simu_gripper" type="bool" value="$(arg simu_gripper)"/>
-    </node>
+    </node-->
 </launch>

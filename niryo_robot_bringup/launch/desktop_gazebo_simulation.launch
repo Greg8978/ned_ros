@@ -14,28 +14,93 @@ This will reduce the amount of time spent waiting during program shutdown
     <!-- Load URDF -->
     <arg name="urdf_path" value="urdf/$(arg hardware_version)/niryo_$(arg hardware_version)_gripper1_n_camera.urdf.xacro" if="$(arg gripper_n_camera)"/>
     <arg name="urdf_path" value="urdf/$(arg hardware_version)/niryo_$(arg hardware_version)_gazebo.urdf.xacro" unless="$(arg gripper_n_camera)"/>
+  
+    <!-- Arguments -->
+    <arg name="use_sim_time" default="true"/>
+    <arg name="headless" default="false"/>
+    <arg name="debug" default="false"/>
+    <arg name="robot_name" default="niryo_robot"/>
+    <arg name="init_pose" default="-x 1 -y 1 -z 0.2"/>
 
-    <param name="robot_description"
-        command="$(find xacro)/xacro $(find niryo_robot_description)/$(arg urdf_path)"/>
-
-    <param name="robot_description_tf2"
-        command="$(find xacro)/xacro $(find niryo_robot_description)/$(arg urdf_path)"/>
-
-    <!-- Define most of ROS parameters -->
-    <include file="$(find niryo_robot_bringup)/launch/niryo_robot_base_simulation.launch.xml">
-        <arg name="simu_gripper" value="$(arg gripper_n_camera)"/>
-        <arg name="gazebo" value="true"/>
-    </include>
 
     <!-- Launching Gazebo World -->
-    <include file="$(find niryo_robot_gazebo)/launch/niryo_robot_gazebo_world.launch.xml">
+    
+    <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name" value="$(find niryo_robot_gazebo)/worlds/niryo_cube_world.world"/>
+        <arg name="debug" value="$(arg debug)"/>
         <arg name="gui" value="$(arg gui)"/>
+        <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+        <arg name="headless" value="$(arg headless)"/>
+        <arg name="output" value="log"/>
     </include>
 
+
+
+
+
+    <group ns="robot1">
+
+
+        <param name="robot_description"
+            command="$(find xacro)/xacro $(find niryo_robot_description)/$(arg urdf_path)" />
+
+        <param name="robot_description_tf2"
+            command="$(find xacro)/xacro $(find niryo_robot_description)/$(arg urdf_path)"/>
+
+        <!-- Define most of ROS parameters -->
+        <include file="$(find niryo_robot_bringup)/launch/niryo_robot_base_simulation.launch.xml">
+            <arg name="simu_gripper" value="$(arg gripper_n_camera)"/>
+            <arg name="gazebo" value="true"/>
+            
+        </include>
+
+
+        <param name="tf_prefix" value="robot1_tf"/>
+        <include file="$(find niryo_robot_gazebo)/launch/niryo_robot_gazebo_world.launch.xml">
+            <arg name="init_pose" value="-x 0 -y 0 -z 0.01"/>
+            <arg name="robot_name" value="niryo_robot1"/>
+        </include>
+
+        <node name="world2robot" pkg="tf" type="static_transform_publisher" 
+        args="0 0 0 0 0 0 /world robot1_tf/world 100" />
+
+    </group>
+
+
+    <group ns="robot2">
+
+        <param name="robot_description"
+            command="$(find xacro)/xacro $(find niryo_robot_description)/$(arg urdf_path)" />
+            
+        <param name="robot_description_tf2"
+            command="$(find xacro)/xacro $(find niryo_robot_description)/$(arg urdf_path)"/>
+
+        <!-- Define most of ROS parameters -->
+        <include file="$(find niryo_robot_bringup)/launch/niryo_robot_base_simulation.launch.xml">
+            <arg name="simu_gripper" value="$(arg gripper_n_camera)"/>
+            <arg name="gazebo" value="true"/>
+            
+        </include>
+
+
+        <param name="tf_prefix" value="robot2_tf"/>
+        <include file="$(find niryo_robot_gazebo)/launch/niryo_robot_gazebo_world.launch.xml">
+            <arg name="init_pose" value="-x 0 -y 0.4 -z 0.01"/>
+            <arg name="robot_name" value="niryo_robot2"/>
+        </include>
+
+
+        
+        <node name="world2robot" pkg="tf" type="static_transform_publisher" 
+        args="0 0.4 0 0 0 0 /world robot2_tf/world 100" />
+
+    </group>
+
     <!-- Launching vision if the user didn't swap camera arg to false -->
-    <include file="$(find niryo_robot_vision)/launch/vision_node.launch" if="$(arg gripper_n_camera)">
+    <!--include file="$(find niryo_robot_vision)/launch/vision_node.launch" if="$(arg gripper_n_camera)">
         <arg name="simulation_mode" value="true"/>
     </include>
-        <param name="/niryo_robot_vision/initialized" type="bool" value="true" unless="$(arg gripper_n_camera)"/>
+        <param name="/niryo_robot_vision/initialized" type="bool" value="true" unless="$(arg gripper_n_camera)"/-->
 
 </launch>
